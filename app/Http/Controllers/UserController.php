@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -40,29 +41,24 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'nik' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
             'nama_lengkap' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8',
             'role' => 'required|in:0,1,2,3',
             'kebangsaan' => 'required|string|max:255',
             'agama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'no_telepon' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
-        
-        $user = User::create($validatedData);
 
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('gambarUser', 'public');
-            $user->foto = $photoPath;
-        }
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $user->user_id = auth()->user()->id;
-        $user->save();
+        User::create($validatedData);
 
-        Alert::success('Berhasil', "Data $user->nama_lengkap berhasil dibuat");
+        Alert::success('Berhasil', "Data $request->nama_lengkap berhasil dibuat");
         return redirect()->route('users.index');
     }
 
@@ -96,7 +92,7 @@ class UserController extends Controller
         Alert::success('Berhasil', "Data $user->nama_lengkap berhasil diedit");
         return redirect()->route('users.index');
     }
-    
+
     public function destroy(user $user)
     {
         $user->delete();
@@ -110,12 +106,36 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'role' => 'required|in:0,1,2,3',
         ]);
-    
+
         $user->update([
             'role' => $validatedData['role'],
         ]);
 
         Alert::success('Berhasil', "Status Role berhasil diubah");
         return redirect()->route('users.show', compact('user'));
+    }
+
+    public function wargaStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nik' => 'required|string|max:255',
+            'nama_lengkap' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8',
+            'kebangsaan' => 'required|string|max:255',
+            'agama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'no_telepon' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['role'] = 0; // Tetapkan nilai role ke 0
+        User::create($validatedData);
+
+        Alert::success('Berhasil', "Data $request->nama_lengkap berhasil dibuat");
+        return redirect()->route('login');
     }
 }

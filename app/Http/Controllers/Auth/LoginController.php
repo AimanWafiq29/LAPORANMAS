@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -49,22 +50,22 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
-            
-            if (auth()->user()->role == 'warga') {
-                return redirect()->route('Warga.home');
-            } else if (auth()->user()->role == 'admin') {
-                return redirect()->route('Admin.home');
-            } else if (auth()->user()->role == 'staff') {
-                return redirect()->route('Staff.home');
-            } else if (auth()->user()->role == 'camat') {
-                return redirect()->route('Camat.home');
-            } else {
-                return redirect()->route('login')->with('error,Email-Address And Password Are Wrong.');
+        if (auth()->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            Alert::success('Berhasil', 'Berhasil Login');
+
+            // Redirect sesuai peran pengguna
+            switch (auth()->user()->role) {
+                case 'warga':
+                    return redirect()->route('warga.home');
+                case 'admin':
+                case 'staff':
+                    return redirect()->route('admin.home');
+                default:
+                    return redirect()->route('login');
             }
-        } else {
-            return redirect()->route('login')
-                ->with('error', 'Email-Address And Password Are Wrong.');
         }
+
+        Alert::warning('Gagal', 'Email atau password Salah');
+        return redirect()->route('login');
     }
 }

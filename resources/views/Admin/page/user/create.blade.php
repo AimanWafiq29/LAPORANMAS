@@ -1,13 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -20,9 +12,9 @@
         <div class="col-md-12">
             <div class="card custom-card">
                 <div class="card-body">
-                    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('users.store') }}">
                         @csrf
-                        @method('PUT')
+
                         <div class="form-group">
                             <label for="nik">NIK</label>
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" required>
@@ -32,15 +24,7 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
-                            @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
+
                         <div class="form-group">
                             <label for="nama_lengkap">Nama Lengkap</label>
                             <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" name="nama_lengkap" required>
@@ -50,15 +34,42 @@
                             </div>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                            @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                            @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
                             <label for="role">Role</label>
-                            <select class="form-control" id="role" name="role">
+                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                                 <option value="0">Warga</option>
                                 <option value="1">Admin</option>
                                 <option value="2">Staff</option>
                                 <option value="3">Camat</option>
                             </select>
+                            @error('role')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="kebangsaan">Kebangsaan</label>
                             <input type="text" class="form-control @error('kebangsaan') is-invalid @enderror" id="kebangsaan" name="kebangsaan" required>
@@ -68,6 +79,7 @@
                             </div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="agama">Agama</label>
                             <input type="text" class="form-control @error('agama') is-invalid @enderror" id="agama" name="agama" required>
@@ -77,6 +89,17 @@
                             </div>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" required>
+                            @error('alamat')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
                             <label for="tempat_lahir">Tempat Lahir</label>
                             <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" required>
@@ -86,6 +109,7 @@
                             </div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="tanggal_lahir">Tanggal Lahir</label>
                             <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" required>
@@ -95,36 +119,31 @@
                             </div>
                             @enderror
                         </div>
+
                         <div class="form-group">
-                            <label for="telepon">Nomor Telepon</label>
-                            <input type="text" class="form-control @error('telepon') is-invalid @enderror" id="telepon" name="telepon" required>
-                            @error('telepon')
+                            <label for="no_telepon">Nomor Telepon</label>
+                            <input type="text" class="form-control @error('no_telepon') is-invalid @enderror" id="no_telepon" name="no_telepon" required>
+                            @error('no_telepon')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin" required>
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
-                        </div>
-<!--                         
-                        <div class="form-group">
-                            <label for="photo">photo</label>
-                            <input type="file" class="form-control-file @error('photo') is-invalid @enderror" id="photo" name="photo" required>
-                            @error('photo')
+                            @error('jenis_kelamin')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div> -->
-                        
+                        </div>
 
-                        <!-- Sisipkan input untuk kolom-kolom lainnya sesuai dengan struktur tabel -->
-                        <button type="submit" class="btn btn-primary">Save Data User</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </form>
                 </div>
             </div>

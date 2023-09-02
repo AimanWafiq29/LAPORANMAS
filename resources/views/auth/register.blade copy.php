@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BKSDM Login</title>
+    <title>BKSDM Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,7 +73,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{route('register')}}">Create an Account!</a>
+                                <a class="small" href="register.html">Create an Account!</a>
                             </div>
                         </div>
                     </div>

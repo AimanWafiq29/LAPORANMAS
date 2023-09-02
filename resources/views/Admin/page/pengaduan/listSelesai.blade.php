@@ -3,15 +3,6 @@
 @push('style')
 <link href="{{asset('template/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
-
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
 

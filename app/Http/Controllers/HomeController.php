@@ -29,12 +29,16 @@ class HomeController extends Controller
         $dataPengaduanBaruCount = Pengaduan::where('status', 'baru')->count();
         $dataPengaduanDiprosesCount = Pengaduan::where('status', 'diproses')->count();
         $dataPengaduanSelesaiCount = Pengaduan::where('status', 'selesai')->count();
-        return view('admin.index', compact('totalPengaduanCount','dataPengaduanBaruCount','dataPengaduanDiprosesCount','dataPengaduanSelesaiCount'));
+        return view('admin.index', compact('totalPengaduanCount', 'dataPengaduanBaruCount', 'dataPengaduanDiprosesCount', 'dataPengaduanSelesaiCount'));
     }
 
     public function homeStaff()
     {
-        return view('Staff.index');
+        $totalPengaduanCount = Pengaduan::count();
+        $dataPengaduanBaruCount = Pengaduan::where('status', 'baru')->count();
+        $dataPengaduanDiprosesCount = Pengaduan::where('status', 'diproses')->count();
+        $dataPengaduanSelesaiCount = Pengaduan::where('status', 'selesai')->count();
+        return view('admin.index', compact('totalPengaduanCount', 'dataPengaduanBaruCount', 'dataPengaduanDiprosesCount', 'dataPengaduanSelesaiCount'));
     }
 
     public function homeCamat()

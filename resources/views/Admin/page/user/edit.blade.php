@@ -1,13 +1,5 @@
 @extends('layouts.dashboard')
 
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -22,7 +14,7 @@
                 <div class="card-body">
                     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
                         <div class="form-group">
                             <label for="nik">NIK</label>
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ $user->nik }}" required>

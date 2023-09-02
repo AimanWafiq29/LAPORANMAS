@@ -4,14 +4,6 @@
 <link href="{{asset('template/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
 
@@ -57,6 +49,7 @@
                                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye" title="Detail"></i> <!-- Icon for Detail -->
                                     </a>
+                                    @if($user->role != 'admin')
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit" title="Edit"></i> <!-- Icon for Edit -->
                                     </a>
@@ -67,6 +60,7 @@
                                             <i class="fas fa-trash" title="Hapus"></i> <!-- Icon for Delete -->
                                         </button>
                                     </form>
+                                    @endif
                                 </div>
                             </td>
 

@@ -15,9 +15,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/userWarga', [UserController::class, 'wargaStore'])
+->name('warga.store');
+
 
 Route::middleware(['auth', 'user-access:warga'])->group(function () {
-    Route::get('/warga/home', [HomeController::class, 'homeWarga'])->name('Warga.home');
+    Route::get('/warga/home', [HomeController::class, 'homeWarga'])->name('warga.home');
     Route::get('/pengaduanWarga/create', [PengaduanController::class, 'pengaduanWargaCreate'])
         ->name('pengaduanWarga.create');
     Route::get('/pengaduanWarga/{pengaduanWarga}', [PengaduanController::class, 'pengaduanWargaShow'])
@@ -30,8 +33,8 @@ Route::middleware(['auth', 'user-access:warga'])->group(function () {
         ->name('pengaduanWarga.store');
 });
 
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    
+Route::middleware(['auth', 'user-access:admin,staff'])->group(function () {
+
     Route::get('/admin/home', [HomeController::class, 'homeAdmin'])->name('admin.home');
 
     Route::resource('pengaduans', PengaduanController::class);
@@ -48,17 +51,31 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/listWarga', [UserController::class, 'listWarga'])->name('users.listWarga');
     Route::get('/admin/listStaff', [UserController::class, 'listStaff'])->name('users.listStaff');
     Route::get('/admin/listAdmin', [UserController::class, 'listAdmin'])->name('users.listAdmin');
-    Route::resource('users', UserController::class);
+
+    Route::get('/users', [UserController::class, 'index'])
+        ->name('users.index');
+
+    Route::get('/users/create', [UserController::class, 'create'])
+        ->name('users.create');
+
+    Route::post('/users', [UserController::class, 'store'])
+        ->name('users.store');
+
+    Route::get('/users/{user}', [UserController::class, 'show'])
+        ->name('users.show');
+
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+        ->name('users.edit');
+
+    Route::patch('/users/{user}', [UserController::class, 'update'])
+        ->name('users.update');
+
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])
+        ->name('users.destroy');
+
+
     Route::patch('/users/{user}/updateRole', [UserController::class, 'updateRole'])
         ->name('users.updateRole');
 
     Route::resource('kategoris', KategoriController::class);
-});
-
-Route::middleware(['auth', 'user-access:staff'])->group(function () {
-    Route::get('/staff/home', [HomeController::class, 'homeStaff'])->name('Staff.home');
-});
-
-Route::middleware(['auth', 'user-access:camat'])->group(function () {
-    Route::get('/camat/home', [HomeController::class, 'homeCamat'])->name('Camat.home');
 });

@@ -28,7 +28,7 @@ class User extends Authenticatable
     protected $fillable = [
         'nik', 'nama_lengkap', 'email', 'password', 'role', 'kebangsaan',
         'agama', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'no_telepon',
-        'jenis_kelamin', 'foto',
+        'jenis_kelamin',
     ];
 
     public function pengaduan()

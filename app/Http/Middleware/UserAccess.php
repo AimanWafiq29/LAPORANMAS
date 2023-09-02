@@ -17,11 +17,20 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next, $userRole): Response
     {
-        if (auth()->user()->role == $userRole) {
+        // Pastikan pengguna telah masuk (authenticated)
+        if (!auth()->check()) {
+            // Pengguna belum masuk, Anda dapat mengarahkannya ke halaman masuk atau tindakan lain.
+            // Misalnya, mengembalikan kode status HTTP 401 (Unauthorized).
+            return abort(401, 'Unauthorized');
+        }
+
+        // Periksa peran pengguna
+        $userRole = auth()->user()->role;
+        if ($userRole == 'admin' || $userRole == 'staff' || $userRole == 'warga') {
             return $next($request);
         }
 
-        return response()->json(['You do not have permission to access for this page.']);
-        /* return response()->view('errors.check-permission'); */
+        // Jika pengguna tidak memiliki izin, arahkan ke halaman kesalahan izin.
+        return abort(403, 'Forbidden');
     }
 }

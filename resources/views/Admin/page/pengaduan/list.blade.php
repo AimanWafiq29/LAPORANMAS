@@ -4,14 +4,6 @@
 <link href="{{asset('template/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
 
@@ -63,16 +55,18 @@
                                     <a href="{{ route('pengaduans.show', $pengaduan->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye" title="Detail"></i> <!-- Icon for Detail -->
                                     </a>
-                                    <a href="{{ route('pengaduans.edit', $pengaduan->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-edit" title="Edit"></i> <!-- Icon for Edit -->
-                                    </a>
-                                    <form action="{{ route('pengaduans.destroy', $pengaduan->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm btn-hapus" data-table="pengaduan" title="Hapus Pendaduan" data-name="{{$pengaduan->judul}}">
-                                            <i class="fas fa-trash" title="Hapus"></i> <!-- Icon for Delete -->
-                                        </button>
-                                    </form>
+                                    @if(auth()->user()->role == 'admin')
+                                        <a href="{{ route('pengaduans.edit', $pengaduan->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit" title="Edit"></i> <!-- Icon for Edit -->
+                                        </a>
+                                        <form action="{{ route('pengaduans.destroy', $pengaduan->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm btn-hapus" data-table="pengaduan" title="Hapus Pendaduan" data-name="{{$pengaduan->judul}}">
+                                                <i class="fas fa-trash" title="Hapus"></i> <!-- Icon for Delete -->
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
 

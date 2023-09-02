@@ -1,13 +1,4 @@
 @extends('layouts.dashboard')
-
-@section('sidebar')
-@include('Admin.layouts.sidebar')
-@endsection
-
-@section('topbar')
-@include('Admin.layouts.topbar')
-@endsection
-
 @section('content')
 <div class="container-fluid">
     <div class="row">
