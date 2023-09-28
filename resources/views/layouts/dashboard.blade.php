@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    
 
     @stack('style')
 
@@ -24,11 +25,25 @@
 
 <body id="page-top">
 
+<style>
+        .bg-primary {
+            background-color: #f4623a !important;
+        }
+
+        .btn-primary {
+            background-color: #f4623a !important;
+        }
+
+        .bg-gradient-primary {
+            background-color: #f4623a !important;
+        }
+    </style>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.home') }}">
@@ -168,7 +183,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright Ardiansyah 2023</span>
                     </div>
                 </div>
             </footer>

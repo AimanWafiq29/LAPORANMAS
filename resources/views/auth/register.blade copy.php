@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="bg-gradient-primary d-flex justify-content-center align-items-center">
+<body class="bg-primary d-flex justify-content-center align-items-center">
 
 
     <div class="container">

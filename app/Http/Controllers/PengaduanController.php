@@ -16,7 +16,7 @@ class PengaduanController extends Controller
         $pengaduans = Pengaduan::orderByDesc('created_at')->get();
         return view('admin.page.pengaduan.list', compact('pengaduans'));
     }
-    
+
     public function listBaru()
     {
         $pengaduans = Pengaduan::where('status', 'baru')->get();
@@ -179,13 +179,13 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findOrFail($id);
         return view('warga.show', compact('pengaduan'));
     }
-   
+
     public function pengaduanWargaCreate()
     {
         $kategoris = Kategori::all();
-        return view('warga..create', compact('kategoris'));
+        return view('warga.create', compact('kategoris'));
     }
-   
+
     public function pengaduanWargaStore(Request $request)
     {
         $validateData = $request->validate([
@@ -194,6 +194,23 @@ class PengaduanController extends Controller
             'deskripsi' => 'required|string',
             'photo' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Validate photo
         ]);
+
+        $user = auth()->user();
+
+        // Periksa apakah pengguna memiliki profil lengkap
+        if (
+            $user->nik === null ||
+            $user->nama_lengkap === null ||
+            $user->kebangsaan === null ||
+            $user->agama === null ||
+            $user->tempat_lahir === null ||
+            $user->tanggal_lahir === null ||
+            $user->no_telepon === null
+        ) {
+            Alert::warning("Silahkan Lengkapi data pelapor terlebih dahulu");
+            return redirect()->route('warga.edit')->with('warning', 'Silakan lengkapi profil Anda sebelum membuat pengaduan.');
+        }
+
 
         $pengaduan = new Pengaduan([
             'judul' => $request->judul,
@@ -211,7 +228,7 @@ class PengaduanController extends Controller
         $pengaduan->save();
 
         Alert::success('Berhasil', "Pengaduan $request->judul berhasil dibuat");
-        return redirect()->route('Warga.home');
+        return redirect()->route('warga.home');
     }
 
     public function pengaduanWargaDestroy($id)
@@ -219,6 +236,6 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findOrFail($id);
         $pengaduan->delete();
         Alert::success('Berhasil', "Pengaduan $pengaduan->judul berhasil dihapus");
-        return redirect()->route('Warga.home');
+        return redirect()->route('warga.home');
     }
 }

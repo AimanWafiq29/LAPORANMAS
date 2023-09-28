@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
@@ -15,8 +16,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/loginAdmin', [LoginController::class, 'loginAdmin'])->name('LoginAdmin');
 Route::post('/userWarga', [UserController::class, 'wargaStore'])
-->name('warga.store');
+    ->name('warga.store');
 
 
 Route::middleware(['auth', 'user-access:warga'])->group(function () {
@@ -31,6 +33,12 @@ Route::middleware(['auth', 'user-access:warga'])->group(function () {
         ->name('pengaduanWarga.destroy');
     Route::post('/pengaduanWarga', [PengaduanController::class, 'pengaduanWargaStore'])
         ->name('pengaduanWarga.store');
+    Route::get('/warga/edit', [UserController::class, 'wargaEdit'])
+        ->name('warga.edit');
+    Route::patch('/user/{user}', [UserController::class, 'wargaUpdate'])
+        ->name('warga.updateWarga');
+    Route::get('/wargas/{warga}', [UserController::class, 'wargaShow'])
+        ->name('wargas.show');
 });
 
 Route::middleware(['auth', 'user-access:admin,staff'])->group(function () {

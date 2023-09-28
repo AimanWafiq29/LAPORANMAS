@@ -14,8 +14,9 @@
             <h6 class="m-0 font-weight-bold text-primary">Form kategori</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('kategoris.update', $kategori->nama) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('kategoris.update', $kategori->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="form-group row">
                     <label for="nama" class="col-md-2 col-form-label text-md-right">
                         Kategori

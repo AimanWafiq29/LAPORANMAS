@@ -17,10 +17,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('landing/css/styles.css')}}" rel="stylesheet" />
 
 </head>
 
-<body class="bg-gradient-primary d-flex justify-content-center align-items-center">
+<body class="bg-primary d-flex justify-content-center align-items-center">
 
 
     <div class="container">
@@ -36,7 +37,7 @@
                     <div class="card-body">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Selamat Datang Di Laporan Mas</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Selamat Datang Di Sistem Laporan Mas</h1>
                             </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -73,7 +74,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{route('register')}}">Create an Account!</a>
+                                <a class="small" href="{{route('register')}}">Buat Akun Pengaduan!</a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@
     </div>
 
     @include('sweetalert::alert')
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 

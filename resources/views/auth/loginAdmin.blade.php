@@ -17,21 +17,13 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('landing/css/styles.css')}}" rel="stylesheet" />
 
 </head>
 
 <body class="bg-primary d-flex justify-content-center align-items-center">
 
-    <style>
-        .bg-primary {
-            background-color: #f4623a !important;
-        }
-        
-        .btn-primary {
-            background-color: #f4623a !important;
-        }
 
-    </style>
     <div class="container">
         <br>
         <br>
@@ -45,37 +37,44 @@
                     <div class="card-body">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Selamat Datang Di Laporan Mas</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Selamat Datang Admin</h1>
                             </div>
-                            <form method="POST" action="{{ route('warga.store') }}">
+                            <form method="POST" action="{{ route('login') }}">
                                 @csrf
-                                
+
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                                    <input id="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address... @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror form-control-user" id="exampleInputPassword" placeholder="Password" name="password" required autocomplete="current-password">
                                     @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox small">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                <button type="submit" class="btn btn-primary">Register</button>
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Remember Me') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    {{ __('Login') }}
+                                </button>
+                                <hr>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <p>Jika sudah punya akun silahkan login</p>
-                                <a class="small" href="{{route('login')}}">Login!</a>
+                                <a class="small" href="{{route('register')}}">Buat Akun</a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
     </div>
 
     @include('sweetalert::alert')
-
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 

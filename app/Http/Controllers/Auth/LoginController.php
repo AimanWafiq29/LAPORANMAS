@@ -68,4 +68,9 @@ class LoginController extends Controller
         Alert::warning('Gagal', 'Email atau password Salah');
         return redirect()->route('login');
     }
+
+    public function loginAdmin()
+    {
+        return view('auth.loginAdmin');
+    }
 }

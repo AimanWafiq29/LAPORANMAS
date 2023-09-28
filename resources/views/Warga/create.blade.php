@@ -75,7 +75,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Save
                         </button>
-                        <a href="{{ route('Warga.home') }}" class="btn btn-success">
+                        <a href="{{ route('warga.home') }}" class="btn btn-success">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>

@@ -25,11 +25,14 @@ class User extends Authenticatable
     //     'password',
     // ];
 
-    protected $fillable = [
-        'nik', 'nama_lengkap', 'email', 'password', 'role', 'kebangsaan',
-        'agama', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'no_telepon',
-        'jenis_kelamin',
-    ];
+    // protected $fillable = [
+    //     'nik', 'nama_lengkap', 'email', 'password', 'role', 'kebangsaan',
+    //     'agama', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'no_telepon',
+    //     'jenis_kelamin',
+    // ];
+
+    protected $guarded = [];
+
 
     public function pengaduan()
     {
